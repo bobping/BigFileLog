@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:task="http://www.springframework.org/schema/task" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/task  
+         http://www.springframework.org/schema/task/spring-task-3.0.xsd
+         http://www.springframework.org/schema/aop 
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+         
+         
+    
+	<!--定时任务 用于心跳更新  -->
+    <task:scheduler id="sch" pool-size="1" />
+    <task:scheduled-tasks scheduler="sch">
+        <task:scheduled ref="dataCmpServer" method="dealForCron" cron="0/10 * * * * ?" />
+    </task:scheduled-tasks>
+    <bean id="dataCmpServer" class="com.ztesoft.schedule.BeatJob" >
+    	<property name="zk" ref="zkClient"></property>
+    </bean>
+    
+    <bean id="zkClient" class="com.ztesoft.zkClient.ZkClient" init-method="init">
+    	<property name="zkAddress">
+    		<value><![CDATA[localhost:2181]]></value>
+    	</property>
+    </bean>
+    
+    <!--gidServer服务连接客户端bean  -->
+<!--     <bean id="sequenceService" class="com.ztesoft.gidClient.service.SequenceService">
+		<property name="gidServerUrl" value="http://10.124.8.146:9999/GidServer/SequenceGenerator"></property>
+		<property name="sysCode" value="IOM"></property>
+	</bean>
+	<bean id="sequenceDAO" class="com.ztesoft.gidClient.dao.SequenceDAOImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean> -->
+    
+    <!--fqueue队列  -->
+   <!--  <bean id="fQueueManager" class="com.ztesoft.queue.fqueue.FQueueManager"></bean> -->
+    
+    <!--数据库连接池  -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value><![CDATA[com.mysql.jdbc.Driver]]></value>
+		</property>
+		<property name="url">
+			
+			<value><![CDATA[jdbc:mysql://localhost:8888/fileserverinfo?autoReconnect=true&useUnicode=true&noAccessToProcedureBodies=true&characterEncoding=utf8]]></value>
+ 			
+ 			<!-- 测试环境数据库 -->
+ 			<!-- <value><![CDATA[jdbc:mysql://10.124.8.164:3306/iom_unicom?autoReconnect=true&useUnicode=true&noAccessToProcedureBodies=true&characterEncoding=utf8]]></value> -->
+			<!-- 生产环境数据库 -->
+<!-- 			<value><![CDATA[jdbc:mysql://10.161.36.172:3306/iom_unicom?autoReconnect=true&useUnicode=true&noAccessToProcedureBodies=true&characterEncoding=utf8]]></value>
+ -->		</property>
+		<property name="username">
+			<value><![CDATA[root]]></value>
+		</property>
+		<property name="password">
+			<value><![CDATA[bobping]]></value>
+		</property>
+		<property name="initialSize">
+			<value>2</value>
+		</property>
+		<property name="maxActive">
+			<value>2</value>
+		</property>
+		<property name="maxIdle">
+			<value>2</value>
+		</property>
+		<property name="minIdle">
+			<value>1</value>
+		</property>
+		<property name="maxWait">
+			<value>60000</value>
+		</property>
+		<property name="validationQuery" value="SELECT 1 FROM DUAL" />
+		<property name="minEvictableIdleTimeMillis">
+			<value>300000</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>200000</value>
+		</property>
+		<property name="poolPreparedStatements">
+			<value>true</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="removeAbandonedTimeout">
+			<value>180</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>true</value>
+		</property>
+		<property name="testOnReturn">
+			<value>true</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+	</bean>
+
+    <context:component-scan base-package="com.ztesoft"/>
+    
+     <import resource="./dubbo.xml"/> 
+    
+</beans>

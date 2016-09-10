@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- Application name 应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。 |==name：当前应用名称，用于注册中心计算应用间依赖关系 -->
+	<dubbo:application name="iom-app2s" />
+	<!-- 模块配置，用于配置当前模块信息，可选。 |==name：当前模块名称，用于注册中心计算模块间依赖关系 |==version：当前模块的版本 
+		|==multiversion：支持多版本（二次开发参数） -->
+	<dubbo:module name="module-provider" version="1.0"
+		multiversion="true" />
+
+	<!-- registry address, used for service to register itself 使用zookeeper注册中心配置，用于配置连接注册中心相关信息。 
+		|==address：注册中心服务器地址，如果地址没有端口缺省为9090， 同一集群内的多个地址用逗号分隔，如：ip:port,ip:port，不同集群的注册中心，请配置多个<dubbo:registry>标签 -->
+	<!-- <dubbo:registry address="zookeeper://10.45.47.90:2189" /> <dubbo:registry 
+		address="zookeeper://127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183" /> -->  <!-- 现场需要自己定义 -->
+	
+	<!--测试环境zk  -->
+<!-- 	<dubbo:registry protocol="zookeeper"
+		address="10.124.8.143:2181,10.124.8.144:2181,10.124.8.145:2181" />  -->
+		
+		
+	<!--生产环境zk  -->
+	<dubbo:registry protocol="zookeeper"
+		address="10.161.36.136:2281,10.161.36.137:2281,10.161.36.138:2281,10.161.36.139:2281,10.161.36.140:2281" /> 
+	
+ 	<!-- <dubbo:registry protocol="zookeeper" address="10.45.47.217:2181" />  -->
+	
+	<!-- expose this service through dubbo protocol, through port 20880 协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。 
+		|==name：协议名称 |==port：服务端口 （以下是性能调优的各项参数） |==server：协议的服务器端实现类型，比如：dubbo协议的mina,netty等，http协议的jetty,servlet等 
+		|==client：协议的客户端实现类型，比如：dubbo协议的mina,netty等 |==serialization：协议序列化方式，当协议支持多种序列化方式时使用，比如：dubbo协议的dubbo,hessian2,java,compactedjava，以及http协议的json等 
+		|==charset：序列化编码 |==threadpool：线程池类型，可选：fixed/cached |==threads：服务线程池大小(固定大小) 
+		|==queues：线程池队列大小，当线程池满时，排队等待执行的队列大小，建议不要设置，当线程程池时应立即失败，重试其它服务提供机器，而不是排队，除非有特殊需求。 
+		|==iothreads：io线程池大小(固定大小) |==buffer：网络读写缓冲区大小 |==accepts：服务提供方最大可接受连接数 |==payload：请求及响应数据包大小限制，单位：字节 -->
+	<!-- <dubbo:protocol name="dubbo" port="20880" /> <dubbo:protocol name="dubbo" 
+		port="9090" server="netty" client="netty" codec="dubbo" serialization="hessian2" 
+		charset="UTF-8" threadpool="fixed" threads="100" queues="0" iothreads="9" 
+		buffer="8192" accepts="1000" payload="8388608" /> -->
+	
+	<!-- Service interface Concurrent Control 服务配置，用于暴露一个服务，定义服务的元信息，一个服务可以用多个协议暴露，一个服务也可以注册到多个注册中心。 
+		|==interface：服务接口名 |==ref：服务对象实现引用 |==executes：服务提供者每服务每方法最大可并行执行请求数 -->
+<!-- 	<dubbo:service
+		interface="com.ztesoft.uosflow.dubbo.inf.client.FlowDubboServiceInf"
+		ref="iomServiceInfImpl" executes="10" /> -->
+
+
+	<!-- Default Protocol -->
+	<!-- <dubbo:protocol server="netty" /> -->
+
+	<!-- 提供端 提供方的缺省值，当ProtocolConfig和ServiceConfig某属性没有配置时，采用此缺省值，可选。 |==filter：服务提供方远程调用过程拦截器名称，多个名称用逗号分隔 
+		|==timeout：远程服务调用超时时间(毫秒) -->
+	<dubbo:provider filter="default" timeout="12000" />
+
+	<!-- 消费端 消费方缺省配置，当ReferenceConfig某属性没有配置时，采用此缺省值，可选。 |==timeout：远程服务调用超时时间(毫秒) 
+		|==retries：远程服务调用超时重试次数 -->
+	<dubbo:consumer timeout="12000" retries="0" />
+
+	<!-- which service to consume? 引用配置，用于创建一个远程服务代理，一个引用可以指向多个注册中心。 |==id：服务引用BeanId 
+		|==interface：服务接口名 -->
+
+
+
+	<dubbo:reference id="sequenceGenerator"
+		interface="com.ztesoft.gidServer.inf.SequenceGenerator" />
+</beans> 
