@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="lib/commons-pool-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/spring/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-aop-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-beans-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-context-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-context-support-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-context-support-4.1.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-context-support-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-core-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-expression-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-jdbc-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-tx-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-compress-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/javassist-3.15.0-GA.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/netty-3.2.5.Final.jar"/>
+	<classpathentry kind="lib" path="lib/zkclient-0.3.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.6.6.jar"/>
+	<classpathentry kind="lib" path="lib/fileManagerServer.jar"/>
+	<classpathentry kind="lib" path="lib/dubbo-5.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.35.jar"/>
+	<classpathentry kind="lib" path="lib/curator/curator-client-2.11.0.jar"/>
+	<classpathentry kind="lib" path="lib/curator/curator-framework-2.11.0.jar"/>
+	<classpathentry kind="lib" path="lib/curator/curator-recipes-2.11.0.jar" sourcepath="C:/Users/bobping/.m2/repository/org/apache/curator/curator-recipes/2.11.0/curator-recipes-2.11.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/curator/guava-18.0.jar"/>
+	<classpathentry kind="lib" path="lib/curator/zookeeper-3.4.6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

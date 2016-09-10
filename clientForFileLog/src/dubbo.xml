@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd  
+            ">
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="fileManagerClt-1" />
+	<!-- 使用本地伪集群注册中心暴露发现服务地址 -->
+	<!--<dubbo:registry protocol="zookeeper"
+		address="localhost:2181" />     -->   
+		 <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
+	<!--<dubbo:reference id="demoService"
+		interface="com.ztesoft.dubbo.intf.DemoServer" />-->
+    <dubbo:registry  protocol="zookeeper"  address="134.96.188.50:9181,134.96.188.51:9181,134.96.188.52:9181" />         <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
+  <!--  <dubbo:registry  protocol="zookeeper"  address="10.124.8.143:2181,10.124.8.144:2181,10.124.8.145:2181" />  -->      
+ 	<dubbo:reference id="fileManageService" interface="com.ztesoft.dubbo.fileManage.service.FileManageService" />  
+</beans>  
